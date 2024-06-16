@@ -2,12 +2,12 @@
   "name": "@gaiaengine/2d-spine",
   "author": "Gaia Protocol",
   "homepage": "https://gaiaprotocol.com",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "type": "module",
   "types": "./lib/index.d.ts",
   "main": "./lib/index.js",
   "dependencies": {
-    "@gaiaengine/2d": "^0.0.2",
+    "@gaiaengine/2d": "^0.0.5",
     "@pixi/spine-pixi": "^2.0.1"
   },
   "devDependencies": {}
