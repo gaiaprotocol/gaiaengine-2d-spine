@@ -1,4 +1,4 @@
-import { Node } from "@gaiaengine/2d";
+import { GameObject } from "@gaiaengine/2d";
 interface SpineOptions {
     atlas: string;
     skel: string;
@@ -6,7 +6,7 @@ interface SpineOptions {
     animation?: string;
     loop?: boolean;
 }
-export default class Spine extends Node {
+export default class Spine extends GameObject {
     private options;
     private onAnimEnd?;
     private pixiSpine;
@@ -15,7 +15,7 @@ export default class Spine extends Node {
     private load;
     set animation(animation: string | undefined);
     get animation(): string | undefined;
-    delete(): void;
+    remove(): void;
 }
 export {};
 //# sourceMappingURL=Spine.d.ts.map

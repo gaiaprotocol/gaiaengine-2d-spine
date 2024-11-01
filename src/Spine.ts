@@ -1,4 +1,4 @@
-import { Node, TextureLoader } from "@gaiaengine/2d";
+import { GameObject, TextureLoader } from "@gaiaengine/2d";
 import {
   AtlasAttachmentLoader,
   SkeletonBinary,
@@ -16,7 +16,7 @@ interface SpineOptions {
   loop?: boolean;
 }
 
-export default class Spine extends Node {
+export default class Spine extends GameObject {
   private pixiSpine: PixiSpine | undefined;
   private _animation: string | undefined;
 
@@ -45,7 +45,7 @@ export default class Spine extends Node {
         ))(),
     ]);
 
-    if (!texture || this.deleted) return;
+    if (!texture || this.removed) return;
 
     const atlas = new TextureAtlas(atlasData!);
     atlas.pages.forEach((page) =>
@@ -83,8 +83,8 @@ export default class Spine extends Node {
     return this._animation;
   }
 
-  public delete(): void {
+  public remove(): void {
     TextureLoader.release(this.options.png);
-    super.delete();
+    super.remove();
   }
 }
