@@ -1,20 +1,23 @@
 import { GameObject } from "@gaiaengine/2d";
 interface SpineOptions {
     atlas: string;
-    skel: string;
-    png: string;
+    skel?: string;
+    json?: string;
+    png: Record<string, string> | string;
+    skins?: string[];
     animation?: string;
     loop?: boolean;
+    onAnimationEnd?: (animation: string) => void;
 }
 export default class Spine extends GameObject {
     private options;
-    private onAnimEnd?;
     private pixiSpine;
     private _animation;
-    constructor(x: number, y: number, options: SpineOptions, onAnimEnd?: ((animation: string) => void) | undefined);
+    constructor(x: number, y: number, options: SpineOptions);
     private load;
     set animation(animation: string | undefined);
     get animation(): string | undefined;
+    private changeSkins;
     remove(): void;
 }
 export {};
