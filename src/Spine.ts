@@ -18,6 +18,7 @@ interface SpineOptions {
   skins?: string[];
   animation?: string;
   loop?: boolean;
+  onLoad?: () => void;
   onAnimationEnd?: (animation: string) => void;
 }
 
@@ -115,6 +116,8 @@ export default class Spine extends GameObject {
     }
 
     this.container.addChild(this.pixiSpine);
+
+    this.options.onLoad?.();
   }
 
   public set animation(animation: string | undefined) {

@@ -7,6 +7,7 @@ interface SpineOptions {
     skins?: string[];
     animation?: string;
     loop?: boolean;
+    onLoad?: () => void;
     onAnimationEnd?: (animation: string) => void;
 }
 export default class Spine extends GameObject {
