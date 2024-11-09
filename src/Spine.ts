@@ -25,6 +25,7 @@ interface SpineOptions {
 export default class Spine extends GameObject {
   private pixiSpine: PixiSpine | undefined;
   private _animation: string | undefined;
+  private _skins: string[] = [];
 
   constructor(x: number, y: number, private options: SpineOptions) {
     super(x, y);
@@ -110,18 +111,15 @@ export default class Spine extends GameObject {
     });
 
     this.animation = this.options.animation;
-
-    if (this.options.skins !== undefined) {
-      this.changeSkins(this.options.skins);
-    }
+    if (this.options.skins) this.skins = this.options.skins;
 
     this.container.addChild(this.pixiSpine);
-
     this.options.onLoad?.();
   }
 
   public set animation(animation: string | undefined) {
     this._animation = animation;
+
     if (this.pixiSpine && animation) {
       this.pixiSpine.state.setAnimation(
         0,
@@ -136,16 +134,22 @@ export default class Spine extends GameObject {
     return this._animation;
   }
 
-  private changeSkins(skins: string[]) {
+  public set skins(skins: string[]) {
+    this._skins = skins;
+
     if (this.pixiSpine) {
       const newSkin = new SpineSkin("combined-skin");
       for (const skinName of skins) {
         const skin = this.pixiSpine.skeleton.data.findSkin(skinName);
         if (skin) newSkin.addSkin(skin);
       }
-      this.pixiSpine.skeleton.skin = newSkin;
+      this.pixiSpine.skeleton.setSkin(newSkin);
       this.pixiSpine.skeleton.setSlotsToSetupPose();
     }
+  }
+
+  public get skins(): string[] {
+    return this._skins;
   }
 
   public remove(): void {

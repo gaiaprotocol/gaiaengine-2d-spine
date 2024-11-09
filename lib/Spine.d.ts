@@ -14,11 +14,13 @@ export default class Spine extends GameObject {
     private options;
     private pixiSpine;
     private _animation;
+    private _skins;
     constructor(x: number, y: number, options: SpineOptions);
     private load;
     set animation(animation: string | undefined);
     get animation(): string | undefined;
-    private changeSkins;
+    set skins(skins: string[]);
+    get skins(): string[];
     remove(): void;
 }
 export {};
