@@ -9,6 +9,8 @@ import {
   TextureAtlas,
 } from "@pixi/spine-pixi";
 import { Texture } from "pixi.js";
+import BinaryLoader from "./loaders/BinaryLoader.js";
+import TextLoader from "./loaders/TextLoader.js";
 
 interface SpineOptions {
   atlas: string;
@@ -35,28 +37,25 @@ export default class Spine extends GameObject {
   private async load() {
     let texture: Texture | undefined;
     let textures: Record<string, Texture> | undefined;
-    let textAtlasData: string;
+    let textAtlasData: string | undefined;
     let skeletonBynary: Uint8Array | undefined;
     let textSkeletonData: string | undefined;
 
     const promises: Promise<any>[] = [];
 
     promises.push(
-      (async () =>
-        textAtlasData = await (await fetch(this.options.atlas)).text())(),
+      (async () => textAtlasData = await TextLoader.load(this.options.atlas))(),
     );
 
     if (this.options.skel !== undefined) {
       promises.push(
         (async () =>
-          skeletonBynary = new Uint8Array(
-            await (await fetch(this.options.skel!)).arrayBuffer(),
-          ))(),
+          skeletonBynary = await BinaryLoader.load(this.options.skel!))(),
       );
     } else if (this.options.json !== undefined) {
       promises.push(
         (async () =>
-          textSkeletonData = await (await fetch(this.options.json!)).text())(),
+          textSkeletonData = await TextLoader.load(this.options.json!))(),
       );
     } else {
       throw new Error("Either skel or json must be provided");
