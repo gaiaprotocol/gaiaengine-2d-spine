@@ -2,6 +2,7 @@ import { GameObject, TextureLoader } from "@gaiaengine/2d";
 import {
   AtlasAttachmentLoader,
   SkeletonBinary,
+  SkeletonData,
   SkeletonJson,
   Skin as SpineSkin,
   Spine as PixiSpine,
@@ -35,13 +36,14 @@ export default class Spine extends GameObject {
   }
 
   private async load() {
-    let texture: Texture | undefined;
-    let textures: Record<string, Texture> | undefined;
+    const promises: Promise<any>[] = [];
+
     let textAtlasData: string | undefined;
     let skeletonBynary: Uint8Array | undefined;
     let textSkeletonData: string | undefined;
 
-    const promises: Promise<any>[] = [];
+    let texture: Texture | undefined;
+    let textures: Record<string, Texture> | undefined;
 
     promises.push(
       (async () => textAtlasData = await TextLoader.load(this.options.atlas))(),
@@ -90,14 +92,14 @@ export default class Spine extends GameObject {
       }
     });
 
-    const attachmentLoader = new AtlasAttachmentLoader(atlas);
+    const atlasLoader = new AtlasAttachmentLoader(atlas);
 
-    let skeletonData;
+    let skeletonData: SkeletonData;
     if (skeletonBynary) {
-      const binaryLoader = new SkeletonBinary(attachmentLoader);
+      const binaryLoader = new SkeletonBinary(atlasLoader);
       skeletonData = binaryLoader.readSkeletonData(skeletonBynary);
     } else if (textSkeletonData) {
-      const jsonLoader = new SkeletonJson(attachmentLoader);
+      const jsonLoader = new SkeletonJson(atlasLoader);
       skeletonData = jsonLoader.readSkeletonData(textSkeletonData);
     } else {
       throw new Error("Either skel or json must be provided");
