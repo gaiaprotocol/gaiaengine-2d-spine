@@ -1,7 +1,7 @@
 import { ResourceLoader } from "@gaiaengine/2d";
 
 class BinaryLoader extends ResourceLoader<Uint8Array> {
-  protected async loadFromPath(src: string): Promise<Uint8Array | undefined> {
+  protected async loadResource(src: string): Promise<Uint8Array | undefined> {
     const loadPromise = (async () => {
       const response = await fetch(src);
       if (!response.ok) throw new Error(`Failed to load binary data: ${src}`);

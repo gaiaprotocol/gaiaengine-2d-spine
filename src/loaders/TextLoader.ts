@@ -1,7 +1,7 @@
 import { ResourceLoader } from "@gaiaengine/2d";
 
 class TextLoader extends ResourceLoader<string> {
-  protected async loadFromPath(src: string): Promise<string | undefined> {
+  protected async loadResource(src: string): Promise<string | undefined> {
     const loadPromise = (async () => {
       const response = await fetch(src);
       if (!response.ok) throw new Error(`Failed to load text: ${src}`);
