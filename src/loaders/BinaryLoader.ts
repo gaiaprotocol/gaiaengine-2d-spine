@@ -1,4 +1,4 @@
-import { ResourceLoader } from "@gaiaengine/2d";
+import { ResourceLoader } from "@common-module/ts";
 
 class BinaryLoader extends ResourceLoader<Uint8Array> {
   protected async loadResource(src: string): Promise<Uint8Array | undefined> {

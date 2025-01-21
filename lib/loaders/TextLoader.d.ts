@@ -1,4 +1,4 @@
-import { ResourceLoader } from "@gaiaengine/2d";
+import { ResourceLoader } from "@common-module/ts";
 declare class TextLoader extends ResourceLoader<string> {
     protected loadResource(src: string): Promise<string | undefined>;
     protected cleanup(_: string): void;
