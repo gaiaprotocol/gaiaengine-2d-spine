@@ -1,6 +1,7 @@
 import { GameObject } from "@gaiaengine/2d";
 interface SpineOptions {
     atlas: string;
+    skeletonData?: any;
     skel?: string;
     json?: string;
     png: Record<string, string> | string;

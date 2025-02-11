@@ -15,6 +15,7 @@ import TextLoader from "./loaders/TextLoader.js";
 
 interface SpineOptions {
   atlas: string;
+  skeletonData?: any;
   skel?: string;
   json?: string;
   png: Record<string, string> | string;
@@ -49,7 +50,8 @@ export default class Spine extends GameObject {
       (async () => textAtlasData = await TextLoader.load(this.options.atlas))(),
     );
 
-    if (this.options.skel !== undefined) {
+    if (this.options.skeletonData) {}
+    else if (this.options.skel !== undefined) {
       promises.push(
         (async () =>
           skeletonBynary = await BinaryLoader.load(this.options.skel!))(),
@@ -95,7 +97,10 @@ export default class Spine extends GameObject {
     const atlasLoader = new AtlasAttachmentLoader(atlas);
 
     let skeletonData: SkeletonData;
-    if (skeletonBynary) {
+    if (this.options.skeletonData) {
+      const jsonLoader = new SkeletonJson(atlasLoader);
+      skeletonData = jsonLoader.readSkeletonData(this.options.skeletonData);
+    } else if (skeletonBynary) {
       const binaryLoader = new SkeletonBinary(atlasLoader);
       skeletonData = binaryLoader.readSkeletonData(skeletonBynary);
     } else if (textSkeletonData) {
