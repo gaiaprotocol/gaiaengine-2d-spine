@@ -4,7 +4,7 @@ interface SpineOptions {
     skeletonData?: any;
     skel?: string;
     json?: string;
-    png: Record<string, string> | string;
+    texture: Record<string, string> | string;
     skins?: string[];
     animation?: string;
     loop?: boolean;

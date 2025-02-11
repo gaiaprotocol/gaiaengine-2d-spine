@@ -1,10 +1,10 @@
 import {
   AtlasAttachmentLoader,
+  Spine as PixiSpine,
   SkeletonBinary,
   SkeletonData,
   SkeletonJson,
   Skin as SpineSkin,
-  Spine as PixiSpine,
   SpineTexture,
   TextureAtlas,
 } from "@esotericsoftware/spine-pixi-v8";
@@ -18,7 +18,7 @@ interface SpineOptions {
   skeletonData?: any;
   skel?: string;
   json?: string;
-  png: Record<string, string> | string;
+  texture: Record<string, string> | string;
   skins?: string[];
   animation?: string;
   loop?: boolean;
@@ -65,14 +65,14 @@ export default class Spine extends GameObject {
       throw new Error("Either skel or json must be provided");
     }
 
-    if (typeof this.options.png === "string") {
+    if (typeof this.options.texture === "string") {
       promises.push(
         (async () =>
-          texture = await TextureLoader.load(this.options.png as string))(),
+          texture = await TextureLoader.load(this.options.texture as string))(),
       );
     } else {
       textures = {};
-      for (const [key, path] of Object.entries(this.options.png)) {
+      for (const [key, path] of Object.entries(this.options.texture)) {
         promises.push(
           (async () => {
             const texture = await TextureLoader.load(path);
@@ -159,10 +159,10 @@ export default class Spine extends GameObject {
   }
 
   public remove(): void {
-    if (typeof this.options.png === "string") {
-      TextureLoader.release(this.options.png);
+    if (typeof this.options.texture === "string") {
+      TextureLoader.release(this.options.texture);
     } else {
-      for (const path of Object.values(this.options.png)) {
+      for (const path of Object.values(this.options.texture)) {
         TextureLoader.release(path);
       }
     }
