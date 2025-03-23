@@ -1,10 +1,10 @@
 import {
   AtlasAttachmentLoader,
-  Spine as PixiSpine,
   SkeletonBinary,
   SkeletonData,
   SkeletonJson,
   Skin as SpineSkin,
+  Spine as PixiSpine,
   SpineTexture,
   TextureAtlas,
 } from "@esotericsoftware/spine-pixi-v8";
