@@ -1,17 +1,20 @@
 import {
   AtlasAttachmentLoader,
+  Spine as PixiSpine,
   SkeletonBinary,
   SkeletonData,
   SkeletonJson,
   Skin as SpineSkin,
-  Spine as PixiSpine,
   SpineTexture,
   TextureAtlas,
 } from "@esotericsoftware/spine-pixi-v8";
-import { GameObject, TextureLoader } from "@gaiaengine/2d";
+import {
+  BinaryLoader,
+  GameObject,
+  TextLoader,
+  TextureLoader,
+} from "@gaiaengine/2d";
 import { Texture } from "pixi.js";
-import BinaryLoader from "./loaders/BinaryLoader.js";
-import TextLoader from "./loaders/TextLoader.js";
 
 interface SpineOptions {
   atlas: string;
