@@ -1,10 +1,10 @@
 import {
   AtlasAttachmentLoader,
-  Spine as PixiSpine,
   SkeletonBinary,
   SkeletonData,
   SkeletonJson,
   Skin as SpineSkin,
+  Spine as PixiSpine,
   SpineTexture,
   TextureAtlas,
 } from "@esotericsoftware/spine-pixi-v8";
@@ -87,7 +87,7 @@ export default class Spine extends GameObject {
 
     await Promise.all(promises);
 
-    if ((!texture && !textures) || this.removed) return;
+    if ((!texture && !textures) || this.isRemoved()) return;
 
     const atlas = new TextureAtlas(textAtlasData!);
     atlas.pages.forEach((page) => {
